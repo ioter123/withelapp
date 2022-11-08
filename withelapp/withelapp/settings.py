@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'noticeapp.apps.NoticeConfig',
     'boardapp.apps.BoardappConfig',
     'userapp.apps.UserappConfig',
+    'mainapp.apps.MainappConfig',
+
 ]
 
 MIDDLEWARE = [
