@@ -1,7 +1,6 @@
 from django.db import models
 
-# 유틸
-from datetime import datetime, timedelta
+
 class Notice_Feed(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(max_length=5000)
@@ -9,6 +8,14 @@ class Notice_Feed(models.Model):
     published_date = models.DateTimeField(null=False) # 등록(수정) 일
     view = models.IntegerField(default=0)
     like_view = models.IntegerField(default=0)
+
+'''
+class Notice_Reply(models.Model):
+    content = models.TextField(max_length=5000)
+    published_date = models.DateTimeField(auto_now_add=True)
+    writer = models.ForeignKey()
+'''
+
 '''
 # class notice_board(models.Model):
 #     index = models.IntegerField(unique=True)

@@ -1,5 +1,5 @@
 from django.http.response import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # 같은 폴더
 from .models import *
@@ -37,6 +37,7 @@ def notice_write(request):
             like_view = like_view
         )
 
+        return redirect('/notice/feed')
         print('저장완료')
 
 

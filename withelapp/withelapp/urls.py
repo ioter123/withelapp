@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('notice/', include('noticeapp.urls', namespace='notice')),
+    path('share/', include('shareapp.urls', namespace='share')),
 ]
