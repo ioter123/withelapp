@@ -1,0 +1,351 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-24 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">회원가입</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">개인정보 수집/이용 동의</p>
+    </div>
+    <div class="lg:w-1/3 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+          <form action="" id="signup" method="POST" novalidate>
+              {% csrf_token %}
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_user_id" for="{{ form.user_id.id_for_label }}" class="leading-7 text-sm text-gray-600"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}</label>
+                    {{ form.user_id }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('user_id')[0].value != '') {
+                            document.getElementsByName('label_user_id')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('user_id')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.email.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('user_id')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.user_id.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        로그인 시 사용할 아이디를 입력해주세요.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_password2" for="{{ form.password2.id_for_label }}"><i
+                            class="fas fa-unlock"></i>&nbsp;&nbsp;비밀번호</label>
+                    {{ form.password2 }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('password2')[0].value != '') {
+                            document.getElementsByName('label_password2')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('password2')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.password2.errors %}
+                    <script type="text/javascript">
+
+                    </script>
+                    {% for error in form.password2.errors %}
+                    <div style="white-space: nowrap;" class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_password1" for="{{ form.password1.id_for_label }}"><i
+                            class="fas fa-unlock-alt"></i>&nbsp;&nbsp;비밀번호 확인</label>
+                    {{ form.password1 }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('password1')[0].value != '') {
+                            document.getElementsByName('label_password1')[0].setAttribute('class','active');
+                        }
+                        document.getElementsByName('password1')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.password1.errors %}
+                    <script type="text/javascript">
+
+                    </script>
+                    {% for error in form.password1.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small style="margin-left: 4px; margin-top:8px;" class="form-text text-muted">
+                        최소 8개의 숫자와 문자 또는 특수기호를 입력해주세요. 일상적인 비밀번호는 사용할 수 없습니다.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_name" for="{{ form.name.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ form.name.label }}</label>
+                    {{ form.name }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('name')[0].value != '') {
+                            document.getElementsByName('label_name')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('name')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.name.errors %}
+                    <script type="text/javascript">
+
+                    </script>
+                    {% for error in form.name.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        이름을 입력해주세요.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_nickname" for="{{ form.nickname.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ form.nickname.label }}</label>
+                    {{ form.nickname }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('nickname')[0].value != '') {
+                            document.getElementsByName('label_nickname')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('nickname')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.name.errors %}
+                    <script type="text/javascript">
+                    </script>
+                    {% for error in form.nickname.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        사용할 닉네임을 입력해주세요.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_phone" for="{{ form.phone.id_for_label }}"><i
+                                            class="fas fa-phone"></i>&nbsp;&nbsp;{{ form.phone.label }}</label>
+                    {{ form.phone }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('phone')[0].value != '') {
+                            document.getElementsByName('label_phone')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('phone')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.phone.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('phone')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.phone.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        하이픈(-)을 제외한 숫자로 입력해주세요.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label style="color:gray;" name="label_birth"
+                        for="{{ form.birth.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ form.birth.label }}</label>
+                    {{ form.birth }}
+                    <script type="text/javascript">
+                        document.getElementsByName('birth')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.birth.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('birth')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.birth.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label style="color:gray;" name="label_gender"
+                        for="{{ form.gender.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ form.gender.label }}</label>
+                    {{ form.gender }}
+                    <script type="text/javascript">
+                        document.getElementsByName('gender')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.gender.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('gender')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.gender.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_email" for="{{ form.email.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.email.label }}</label>
+                    {{ form.email }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('email')[0].value != '') {
+                            document.getElementsByName('label_email')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('email')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.email.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('email')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.email.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        정확한 이메일 주소를 입력해주세요.
+                        회원가입 후 입력하신 메일주소로 본인인증 메일이 전송됩니다.
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_address" for="{{ form.address.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.address.label }}</label>
+                    {{ form.address }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('address')[0].value != '') {
+                            document.getElementsByName('label_address')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('address')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('address')[0].setAttribute('readonly','')
+                    </script>
+                    {% if form.address.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('address')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.address.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_address_detail" for="상세주소"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;상세주소</label>
+                    <input type="text" name="address_detail" id="address_detail"/>
+                    <script>
+                        document.getElementsByName('address_detail')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_introduce" for="{{ form.introduce.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.introduce.label }}</label>
+                    {{ form.introduce }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('introduce')[0].value != '') {
+                            document.getElementsByName('label_introduce')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('introduce')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+
+                    </script>
+                    {% if form.introduce.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('introduce')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.introduce.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                    <small class="form-text text-muted">
+                        간단한 자기소개를 적어주세요.
+                    </small>
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <button type="button" id="submit_btn"
+                                            class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg btn" data-toggle="tooltip"
+                                            title="회원가입">가입</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("id_address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementsByName('address')[0].value = data.address; // 주소 넣기
+                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+
+$(document).ready(function(){
+	$("#submit_btn").on("click", function(){
+		var form = $("form#signup");
+		form.submit();
+	});
+});
+
+</script>
+{% endblock content %}

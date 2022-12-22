@@ -57,7 +57,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     user_id = models.CharField(max_length=128, verbose_name="아이디", null=True, unique=True)
     password = models.CharField(max_length=256, verbose_name="비밀번호")
     name = models.CharField(max_length=128, verbose_name='이름')
-    nickname = models.CharField(max_length=128, verbose_name='닉네임')
+    nickname = models.CharField(max_length=128, blank=True, null=True, verbose_name='닉네임')
     phone = models.CharField(max_length=128, blank=True, null=True, verbose_name='연락처')
     email = models.EmailField(max_length=256, blank=True, null=True, verbose_name='이메일')
     birth = models.CharField(max_length=256, blank=True, null=True, verbose_name='생년월일')

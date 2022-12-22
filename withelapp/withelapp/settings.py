@@ -43,9 +43,9 @@ SERVER_EMAIL = 'cdchwithel'
 DEFAULT_FROM_MAIL = 'cdchwithel@gmail.com'
 
 # 로그인/아웃 처리
-LOGIN_URL = '/user_login/'          # 로그인 URL
-LOGIN_REDIRECT_URL = '/user_login/'  # 로그인 후 URL
-LOGOUT_REDIRECT_URL = '/user_login/'            # 로그아웃 후 URL
+LOGIN_URL = '/user/login/'          # 로그인 URL
+LOGIN_REDIRECT_URL = '/index/'  # 로그인 후 URL
+LOGOUT_REDIRECT_URL = '/user/login/'            # 로그아웃 후 URL
 AUTH_USER_MODEL = "userapp.User"
 
 # 창 닫으면 세션 만료

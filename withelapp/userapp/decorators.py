@@ -21,7 +21,7 @@ def admin_required(function):
         if request.user.is_admin:
             return function(request, *args, **kwargs)
         messages.info(request, "접근 권한이 없습니다.")
-        return redirect('/user_login/')
+        return redirect('/user/login/')
     return wrap
 
 
