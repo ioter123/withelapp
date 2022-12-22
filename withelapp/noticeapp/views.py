@@ -6,7 +6,21 @@ from .models import *
 
 # 유틸
 from datetime import datetime, timedelta
+
+# 로그인 유저 정보 가져오기
+from django.contrib.auth import login
 # Create your views here.
+
+
+def currnet_user(request):
+    current_user = request.user
+    user_id = current_user.id
+    user_name = current_user.username
+    user_info = {
+        'id' : user_id,
+        'name' : user_name
+                 }
+    return user_info
 
 def notice_feed(request):
     vAllFeed = Notice_Feed.objects.all()
@@ -20,6 +34,7 @@ def notice_feed(request):
     return render(request, 'notice/notice_feed.html', context)
 
 def notice_write(request):
+
     if request.method == 'POST':
         content = request.POST.get('content')
         title = request.POST.get('title')
