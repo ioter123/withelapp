@@ -5,19 +5,19 @@
 <section class="text-gray-600 body-font relative">
   <div class="container px-5 py-5 mx-auto my-5">
     <div class="flex flex-col text-center w-full mb-12">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">회원가입</h1>
-      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">회원정보 입력</p>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">마이페이지</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">회원정보 수정</p>
     </div>
     <div class="lg:w-1/3 md:w-2/3 mx-auto">
       <div class="flex flex-wrap -m-2">
-          <form action="" id="signup" method="POST" novalidate>
+          <form action="" id="profile_update" method="POST" novalidate>
               {% csrf_token %}
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_user_id" for="{{ form.user_id.id_for_label }}" class="leading-7 text-sm text-gray-600"><i
-                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}</label>
-                    {{ form.user_id }}
+                    <label name="label_user_id" for="id_user_id" class="leading-7 text-sm text-gray-600"><i
+                        class="fas fa-user"></i>&nbsp;&nbsp;아이디</label>
+                    <input type="text" name="user_id" maxlength="128" id="id_user_id" value="{{ user.user_id }}" disabled/>
                     <script type="text/javascript">
                         if (document.getElementsByName('user_id')[0].value != '') {
                             document.getElementsByName('label_user_id')[0].setAttribute('class',
@@ -25,84 +25,22 @@
                         }
                         document.getElementsByName('user_id')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
                     </script>
-                    {% if form.email.errors %}
-                    <script type="text/javascript">
-                        document.getElementsByName('user_id')[0].setAttribute('class',
-                            'form-control is-invalid')
-                    </script>
-                    {% for error in form.user_id.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
                     <small class="form-text text-muted">
-                        로그인 시 사용할 아이디를 입력해주세요.
                     </small>
                 </div>
               </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_password2" for="{{ form.password2.id_for_label }}"><i
-                            class="fas fa-unlock"></i>&nbsp;&nbsp;비밀번호</label>
-                    {{ form.password2 }}
-                    <script type="text/javascript">
-                        if (document.getElementsByName('password2')[0].value != '') {
-                            document.getElementsByName('label_password2')[0].setAttribute('class', 'active');
-                        }
-                        document.getElementsByName('password2')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
-                    </script>
-                    {% if form.password2.errors %}
-                    <script type="text/javascript">
-
-                    </script>
-                    {% for error in form.password2.errors %}
-                    <div style="white-space: nowrap;" class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                </div>
-              </div>
-
-              <div class="p-2 w-full">
-                <div class="relative">
-                    <label name="label_password1" for="{{ form.password1.id_for_label }}"><i
-                            class="fas fa-unlock-alt"></i>&nbsp;&nbsp;비밀번호 확인</label>
-                    {{ form.password1 }}
-                    <script type="text/javascript">
-                        if (document.getElementsByName('password1')[0].value != '') {
-                            document.getElementsByName('label_password1')[0].setAttribute('class','active');
-                        }
-                        document.getElementsByName('password1')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
-                    </script>
-                    {% if form.password1.errors %}
-                    <script type="text/javascript">
-
-                    </script>
-                    {% for error in form.password1.errors %}
-                    <div class="invalid-feedback">
-                        {{ error }}
-                    </div>
-                    {% endfor %}
-                    {% endif %}
-                    <small style="margin-left: 4px; margin-top:8px;" class="form-text text-muted">
-                        최소 8개의 숫자와 문자 또는 특수기호를 입력해주세요. 일상적인 비밀번호는 사용할 수 없습니다.
-                    </small>
-                </div>
-              </div>
-
-              <div class="p-2 w-full">
-                <div class="relative">
-                    <label name="label_name" for="{{ form.name.id_for_label }}"><i
-                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ form.name.label }}</label>
-                    {{ form.name }}
+                    <label name="label_name" for="{{ user_change_form.name.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ user_change_form.name.label }}</label>
+                    {{ user_change_form.name }}
                     <script type="text/javascript">
                         if (document.getElementsByName('name')[0].value != '') {
                             document.getElementsByName('label_name')[0].setAttribute('class', 'active');
                         }
                         document.getElementsByName('name')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('name')[0].setAttribute('value', '{{user.name}}');
                     </script>
                     {% if form.name.errors %}
                     <script type="text/javascript">
@@ -114,22 +52,20 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    <small class="form-text text-muted">
-                        이름을 입력해주세요.
-                    </small>
                 </div>
               </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_nickname" for="{{ form.nickname.id_for_label }}"><i
-                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ form.nickname.label }}</label>
-                    {{ form.nickname }}
+                    <label name="label_nickname" for="{{ user_change_form.nickname.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ user_change_form.nickname.label }}</label>
+                    {{ user_change_form.nickname }}
                     <script type="text/javascript">
                         if (document.getElementsByName('nickname')[0].value != '') {
                             document.getElementsByName('label_nickname')[0].setAttribute('class', 'active');
                         }
                         document.getElementsByName('nickname')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('nickname')[0].setAttribute('value', '{{user.nickname}}');
                     </script>
                     {% if form.name.errors %}
                     <script type="text/javascript">
@@ -140,27 +76,25 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    <small class="form-text text-muted">
-                        사용할 닉네임을 입력해주세요.
-                    </small>
                 </div>
               </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_phone" for="{{ form.phone.id_for_label }}"><i
-                                            class="fas fa-phone"></i>&nbsp;&nbsp;{{ form.phone.label }}</label>
-                    {{ form.phone }}
+                    <label name="label_phone" for="{{ user_change_form.phone.id_for_label }}"><i
+                                            class="fas fa-phone"></i>&nbsp;&nbsp;{{ user_change_form.phone.label }}</label>
+                    {{ user_change_form.phone }}
                     <script type="text/javascript">
                         if (document.getElementsByName('phone')[0].value != '') {
                             document.getElementsByName('label_phone')[0].setAttribute('class', 'active');
                         }
+                        document.getElementsByName('phone')[0].setAttribute('value', '{{user.phone}}');
                         document.getElementsByName('phone')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
                     </script>
                     {% if form.phone.errors %}
                     <script type="text/javascript">
                         document.getElementsByName('phone')[0].setAttribute('class',
-                            'form-control is-invalid')
+                            'form-control is-invalid');
                     </script>
                     {% for error in form.phone.errors %}
                     <div class="invalid-feedback">
@@ -168,25 +102,23 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    <small class="form-text text-muted">
-                        하이픈(-)을 제외한 숫자로 입력해주세요.
-                    </small>
                 </div>
               </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
                     <label style="color:gray;" name="label_birth"
-                        for="{{ form.birth.id_for_label }}"><i
-                            class="fas fa-users"></i>&nbsp;&nbsp;{{ form.birth.label }}</label>
-                    {{ form.birth }}
+                        for="{{ user_change_form.birth.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ user_change_form.birth.label }}</label>
+                    {{ user_change_form.birth }}
                     <script type="text/javascript">
+                        document.getElementsByName('birth')[0].setAttribute('value', '{{user.birth}}');
                         document.getElementsByName('birth')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
                     </script>
                     {% if form.birth.errors %}
                     <script type="text/javascript">
                         document.getElementsByName('birth')[0].setAttribute('class',
-                            'form-control is-invalid')
+                            'form-control is-invalid');
                     </script>
                     {% for error in form.birth.errors %}
                     <div class="invalid-feedback">
@@ -200,10 +132,15 @@
               <div class="p-2 w-full">
                 <div class="relative">
                     <label style="color:gray;" name="label_gender"
-                        for="{{ form.gender.id_for_label }}"><i
-                            class="fas fa-users"></i>&nbsp;&nbsp;{{ form.gender.label }}</label>
-                    {{ form.gender }}
+                        for="{{ user_change_form.gender.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ user_change_form.gender.label }}</label>
+                    {{ user_change_form.gender }}
                     <script type="text/javascript">
+                        {% if user.gender == '남자' %}
+                        document.getElementsByName('gender')[0].childNodes[0].setAttribute('selected', '');
+                        {% else %}
+                        document.getElementsByName('gender')[0].childNodes[1].setAttribute('selected', '');
+                        {% endif %}
                         document.getElementsByName('gender')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
                     </script>
                     {% if form.gender.errors %}
@@ -222,14 +159,15 @@
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_email" for="{{ form.email.id_for_label }}"><i
-                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.email.label }}</label>
-                    {{ form.email }}
+                    <label name="label_email" for="{{ user_change_form.email.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.email.label }}</label>
+                    {{ user_change_form.email }}
                     <script type="text/javascript">
                         if (document.getElementsByName('email')[0].value != '') {
                             document.getElementsByName('label_email')[0].setAttribute('class',
                                 'active');
                         }
+                        document.getElementsByName('email')[0].setAttribute('value', '{{user.email}}');
                         document.getElementsByName('email')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
                     </script>
                     {% if form.email.errors %}
@@ -243,30 +181,27 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    <small class="form-text text-muted">
-                        정확한 이메일 주소를 입력해주세요.
-                        회원가입 후 입력하신 메일주소로 본인인증 메일이 전송됩니다.
-                    </small>
                 </div>
               </div>
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_address" for="{{ form.address.id_for_label }}"><i
-                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.address.label }}</label>
-                    {{ form.address }}
+                    <label name="label_address" for="{{ user_change_form.address.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.address.label }}</label>
+                    {{ user_change_form.address }}
                     <script type="text/javascript">
                         if (document.getElementsByName('address')[0].value != '') {
                             document.getElementsByName('label_address')[0].setAttribute('class',
                                 'active');
                         }
+                        document.getElementsByName('address')[0].setAttribute('value', '{{user.address}}');
                         document.getElementsByName('address')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
-                        document.getElementsByName('address')[0].setAttribute('readonly','')
+                        document.getElementsByName('address')[0].setAttribute('readonly','');
                     </script>
                     {% if form.address.errors %}
                     <script type="text/javascript">
                         document.getElementsByName('address')[0].setAttribute('class',
-                            'form-control is-invalid')
+                            'form-control is-invalid');
                     </script>
                     {% for error in form.address.errors %}
                     <div class="invalid-feedback">
@@ -289,21 +224,22 @@
 
               <div class="p-2 w-full">
                 <div class="relative">
-                    <label name="label_introduce" for="{{ form.introduce.id_for_label }}"><i
-                            class="fas fa-user"></i>&nbsp;&nbsp;{{ form.introduce.label }}</label>
-                    {{ form.introduce }}
+                    <label name="label_introduce" for="{{ user_change_form.introduce.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.introduce.label }}</label>
+                    {{ user_change_form.introduce }}
                     <script type="text/javascript">
                         if (document.getElementsByName('introduce')[0].value != '') {
                             document.getElementsByName('label_introduce')[0].setAttribute('class',
                                 'active');
                         }
+                        document.getElementsByName('introduce')[0].setAttribute('value', '{{user.introduce}}');
                         document.getElementsByName('introduce')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
 
                     </script>
                     {% if form.introduce.errors %}
                     <script type="text/javascript">
                         document.getElementsByName('introduce')[0].setAttribute('class',
-                            'form-control is-invalid')
+                            'form-control is-invalid');
                     </script>
                     {% for error in form.introduce.errors %}
                     <div class="invalid-feedback">
@@ -311,15 +247,12 @@
                     </div>
                     {% endfor %}
                     {% endif %}
-                    <small class="form-text text-muted">
-                        간단한 자기소개를 적어주세요.
-                    </small>
                 </div>
               </div>
               <div class="p-2 w-full">
                 <button type="button" id="submit_btn"
                                             class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg btn" data-toggle="tooltip"
-                                            title="회원가입">가입</button>
+                                            title="수정하기">수정하기</button>
               </div>
           </form>
       </div>

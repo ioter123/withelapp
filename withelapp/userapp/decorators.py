@@ -30,7 +30,7 @@ def logout_message_required(function):
     def wrap(request, *args, **kwargs):
         if request.user.is_authenticated:
             messages.info(request, "접속중인 사용자입니다.")
-            return redirect('/index/')
+            return redirect('/main/')
         return function(request, *args, **kwargs)
     return wrap
 
