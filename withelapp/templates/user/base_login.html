@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>withEL - 창동성결교회청년부</title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        {% load static %}
+        <!-- Font Awesome Icon -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js">
+        </script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript"
+            src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.11.0/js/mdb.min.js">
+        </script>
+    </head>
+    <body>
+        <div class="text-gray-600 body-font">
+            <div class="container px-5 pt-24 mx-auto">
+                <div class="flex flex-col text-center w-full mb-12">
+                  <p class="lg:w-2/3 mx-auto leading-relaxed text-base">창 동 성 결 교 회 청 년 부</p>
+                  <h1 class="sm:text-6xl text-6xl font-medium title-font mb-4 text-gray-900">withEL</h1>
+                </div>
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+        {% if messages %}
+        {% for message in messages %}
+        {% if message.tags %}
+        <script>
+            alert("{{ message.message }}")
+        </script>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+    </body>
+</html>

@@ -6,11 +6,12 @@ from .views import *
 app_name = 'user'
 
 urlpatterns = [
+    path('', main, name='main'),
     path('register/', RegisterView.as_view(), name='register'),
     path('registerauth/', register_success, name='register_success'),
     path('agreement/', AgreementView.as_view(), name='agreement'),
     path('activate/<str:uid64>/<str:token>/', activate, name='activate'),
-    path('user_login/', LoginView.as_view(), name='user_login'),
+    path('login/', LoginView.as_view(), name='login'),
     path('logout/', logout_view, name='logout'),
     path('recovery/id/', RecoveryIdView.as_view(), name='recovery_id'),
     path('recovery/id/find/', ajax_find_id_view, name='ajax_id'),

@@ -21,5 +21,6 @@ urlpatterns = [
     path('notice/', include('noticeapp.urls', namespace='notice')),
     path('share/', include('shareapp.urls', namespace='share')),
     path('user/', include('userapp.urls', namespace='user')),
+    path('main/', include('userapp.urls', namespace='main')),
 ]
 

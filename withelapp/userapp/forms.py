@@ -3,6 +3,7 @@ from django.contrib.auth.hashers import check_password
 from .models import User
 from django.contrib.auth.forms import AuthenticationForm, UserChangeForm, SetPasswordForm, UserCreationForm, PasswordChangeForm
 from django.contrib.auth import get_user_model
+from .choice import *
 
 
 def phone_validator(value):
@@ -11,6 +12,15 @@ def phone_validator(value):
 
 
 class RegisterForm(UserCreationForm):
+
+    gender = forms.ChoiceField(choices=GENDER_CHOICES, label='성별', widget=forms.Select(
+        attrs={'class': 'form-control'}),
+    )
+
+    birth = forms.CharField(required=False, label='생년월일', widget=forms.NumberInput(
+        attrs={'class': 'form-control', 'type': 'date'}),
+    )
+
     def __init__(self, *args, **kwargs):
         super(RegisterForm, self).__init__(*args, **kwargs)
 
@@ -45,15 +55,7 @@ class RegisterForm(UserCreationForm):
             'class': 'form-control',
         })
 
-        self.fields['birth'].widget.attrs.update({
-            'class': 'form-control',
-        })
-
         self.fields['address'].widget.attrs.update({
-            'class': 'form-control',
-        })
-
-        self.fields['gender'].widget.attrs.update({
             'class': 'form-control',
         })
 
@@ -64,7 +66,7 @@ class RegisterForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['user_id', 'password1', 'password2','name', 'nickname', 'phone', 'email', 'birth', 'address', 'gender', 'introduce']
+        fields = ['user_id', 'password1', 'password2', 'name', 'nickname', 'phone', 'email', 'birth', 'address', 'gender', 'introduce']
 
     def save(self, commit=True):
         user = super(RegisterForm, self).save(commit=False)
@@ -95,7 +97,7 @@ class LoginForm(forms.Form):
 
         if user_id and password:
             try:
-                user = User.objects.get(email=user_id)
+                user = User.objects.get(user_id=user_id)
             except User.DoesNotExist:
                 self.add_error('email', '아이디가 존재하지 않습니다.')
                 return

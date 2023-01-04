@@ -1,0 +1,284 @@
+{% extends 'user/base_login.html' %}
+{% load static %}
+
+{% block content %}
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-5 mx-auto my-5">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">마이페이지</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">회원정보 수정</p>
+    </div>
+    <div class="lg:w-1/3 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+          <form action="" id="profile_update" method="POST" novalidate>
+              {% csrf_token %}
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_user_id" for="id_user_id" class="leading-7 text-sm text-gray-600"><i
+                        class="fas fa-user"></i>&nbsp;&nbsp;아이디</label>
+                    <input type="text" name="user_id" maxlength="128" id="id_user_id" value="{{ user.user_id }}" disabled/>
+                    <script type="text/javascript">
+                        if (document.getElementsByName('user_id')[0].value != '') {
+                            document.getElementsByName('label_user_id')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('user_id')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    <small class="form-text text-muted">
+                    </small>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_name" for="{{ user_change_form.name.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ user_change_form.name.label }}</label>
+                    {{ user_change_form.name }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('name')[0].value != '') {
+                            document.getElementsByName('label_name')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('name')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('name')[0].setAttribute('value', '{{user.name}}');
+                    </script>
+                    {% if form.name.errors %}
+                    <script type="text/javascript">
+
+                    </script>
+                    {% for error in form.name.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_nickname" for="{{ user_change_form.nickname.id_for_label }}"><i
+                            class="fas fa-user-edit"></i>&nbsp;&nbsp;{{ user_change_form.nickname.label }}</label>
+                    {{ user_change_form.nickname }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('nickname')[0].value != '') {
+                            document.getElementsByName('label_nickname')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('nickname')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('nickname')[0].setAttribute('value', '{{user.nickname}}');
+                    </script>
+                    {% if form.name.errors %}
+                    <script type="text/javascript">
+                    </script>
+                    {% for error in form.nickname.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_phone" for="{{ user_change_form.phone.id_for_label }}"><i
+                                            class="fas fa-phone"></i>&nbsp;&nbsp;{{ user_change_form.phone.label }}</label>
+                    {{ user_change_form.phone }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('phone')[0].value != '') {
+                            document.getElementsByName('label_phone')[0].setAttribute('class', 'active');
+                        }
+                        document.getElementsByName('phone')[0].setAttribute('value', '{{user.phone}}');
+                        document.getElementsByName('phone')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.phone.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('phone')[0].setAttribute('class',
+                            'form-control is-invalid');
+                    </script>
+                    {% for error in form.phone.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label style="color:gray;" name="label_birth"
+                        for="{{ user_change_form.birth.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ user_change_form.birth.label }}</label>
+                    {{ user_change_form.birth }}
+                    <script type="text/javascript">
+                        document.getElementsByName('birth')[0].setAttribute('value', '{{user.birth}}');
+                        document.getElementsByName('birth')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.birth.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('birth')[0].setAttribute('class',
+                            'form-control is-invalid');
+                    </script>
+                    {% for error in form.birth.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label style="color:gray;" name="label_gender"
+                        for="{{ user_change_form.gender.id_for_label }}"><i
+                            class="fas fa-users"></i>&nbsp;&nbsp;{{ user_change_form.gender.label }}</label>
+                    {{ user_change_form.gender }}
+                    <script type="text/javascript">
+                        {% if user.gender == '남자' %}
+                        document.getElementsByName('gender')[0].childNodes[0].setAttribute('selected', '');
+                        {% else %}
+                        document.getElementsByName('gender')[0].childNodes[1].setAttribute('selected', '');
+                        {% endif %}
+                        document.getElementsByName('gender')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.gender.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('gender')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.gender.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_email" for="{{ user_change_form.email.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.email.label }}</label>
+                    {{ user_change_form.email }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('email')[0].value != '') {
+                            document.getElementsByName('label_email')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('email')[0].setAttribute('value', '{{user.email}}');
+                        document.getElementsByName('email')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                    {% if form.email.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('email')[0].setAttribute('class',
+                            'form-control is-invalid')
+                    </script>
+                    {% for error in form.email.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_address" for="{{ user_change_form.address.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.address.label }}</label>
+                    {{ user_change_form.address }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('address')[0].value != '') {
+                            document.getElementsByName('label_address')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('address')[0].setAttribute('value', '{{user.address}}');
+                        document.getElementsByName('address')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                        document.getElementsByName('address')[0].setAttribute('readonly','');
+                    </script>
+                    {% if form.address.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('address')[0].setAttribute('class',
+                            'form-control is-invalid');
+                    </script>
+                    {% for error in form.address.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_address_detail" for="상세주소"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;상세주소</label>
+                    <input type="text" name="address_detail" id="address_detail"/>
+                    <script>
+                        document.getElementsByName('address_detail')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+                    </script>
+                </div>
+              </div>
+
+              <div class="p-2 w-full">
+                <div class="relative">
+                    <label name="label_introduce" for="{{ user_change_form.introduce.id_for_label }}"><i
+                            class="fas fa-user"></i>&nbsp;&nbsp;{{ user_change_form.introduce.label }}</label>
+                    {{ user_change_form.introduce }}
+                    <script type="text/javascript">
+                        if (document.getElementsByName('introduce')[0].value != '') {
+                            document.getElementsByName('label_introduce')[0].setAttribute('class',
+                                'active');
+                        }
+                        document.getElementsByName('introduce')[0].setAttribute('value', '{{user.introduce}}');
+                        document.getElementsByName('introduce')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+
+                    </script>
+                    {% if form.introduce.errors %}
+                    <script type="text/javascript">
+                        document.getElementsByName('introduce')[0].setAttribute('class',
+                            'form-control is-invalid');
+                    </script>
+                    {% for error in form.introduce.errors %}
+                    <div class="invalid-feedback">
+                        {{ error }}
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
+              </div>
+              <div class="p-2 w-full">
+                <button type="button" id="submit_btn"
+                                            class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg btn" data-toggle="tooltip"
+                                            title="수정하기">수정하기</button>
+              </div>
+          </form>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+window.onload = function(){
+    document.getElementById("id_address").addEventListener("click", function(){ //주소입력칸을 클릭하면
+        //카카오 지도 발생
+        new daum.Postcode({
+            oncomplete: function(data) { //선택시 입력값 세팅
+                document.getElementsByName('address')[0].value = data.address; // 주소 넣기
+                document.querySelector("input[name=address_detail]").focus(); //상세입력 포커싱
+            }
+        }).open();
+    });
+}
+
+$(document).ready(function(){
+	$("#submit_btn").on("click", function(){
+		var form = $("form#signup");
+		form.submit();
+	});
+});
+
+</script>
+{% endblock content %}

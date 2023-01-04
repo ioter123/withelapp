@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from pathlib import Path
 from .models import *
 from django.views import View
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.core.exceptions import ValidationError
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
@@ -28,26 +28,33 @@ EMAIL = getattr(settings, 'EMAIL', None)
 SECRET_KEY = getattr(settings, 'SECRET_KEY', None)
 
 
+def main(request):
+    return render(request, 'user/main.html')
+
+
 class RegisterView(CreateView):
     model = User
     template_name = 'user/register.html'
     form_class = RegisterForm
 
-    def get_context_data(self, **kwargs):
-        context = super(RegisterView, self).get_context_data(**kwargs)
-        return context
+    def get(self, request, *args, **kwargs):
+        if not request.session.get('agreement', False):
+            raise PermissionDenied
+        request.session['agreement'] = False
+        return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
         self.request.session['register_auth'] = True
         messages.success(self.request, '회원님의 입력한 Email 주소로 인증 메일이 발송되었습니다. 인증 후 로그인이 가능합니다.')
-        return reverse('register_success')
+        return reverse('user/register_success/')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
+        self.object.address = self.request.POST['address']+'/'+self.request.POST['address_detail']
         self.object.save()
         send_mail(
             '{}님의 회원가입 인증메일 입니다.'.format(self.object.name),
-            [self.object.user_id],
+            [self.object.email],
             html=render_to_string('user/register_email.html', {
                 'user': self.object,
                 'uid': urlsafe_base64_encode(force_bytes(self.object.pk)).encode().decode(),
@@ -75,10 +82,10 @@ class AgreementView(View):
         return render(request, 'user/agreement.html')
 
     def post(self, request, *args, **kwarg):
-        if request.POST.get('agreement1', False) and request.POST.get('agreement2', False):
+        if request.POST.get('agreement', False):
             request.session['agreement'] = True
 
-            return redirect('/register/')
+            return redirect('/user/register')
         else:
             messages.info(request, "약관에 모두 동의해주세요.")
             return render(request, 'user/agreement.html')
@@ -90,24 +97,24 @@ def activate(request, uid64, token):
         current_user = User.objects.get(pk=uid)
     except (TypeError, ValueError, OverflowError, User.DoesNotExist, ValidationError):
         messages.error(request, '메일 인증에 실패했습니다.')
-        return redirect('user_login')
+        return redirect('/user/login')
 
     if default_token_generator.check_token(current_user, token):
         current_user.is_active = True
         current_user.save()
 
         messages.info(request, '메일 인증이 완료 되었습니다. 회원가입을 축하드립니다!')
-        return redirect('user_login')
+        return redirect('/user/login')
 
     messages.error(request, '메일 인증에 실패했습니다.')
-    return redirect('user_login')
+    return redirect('/user/login')
 
 
 @method_decorator(logout_message_required, name='dispatch')
 class LoginView(FormView):
-    template_name = 'user/user_login.html'
+    template_name = 'user/login.html'
     form_class = LoginForm
-    success_url = '/'
+    success_url = '/user/'
 
     def form_valid(self, form):
         user_id = form.cleaned_data.get("user_id")
@@ -126,7 +133,7 @@ class LoginView(FormView):
 
 def logout_view(request):
     logout(request)
-    return redirect('/user_login')
+    return redirect('/user/login')
 
 
 @method_decorator(logout_message_required, name='dispatch')
@@ -210,7 +217,7 @@ def auth_pw_reset_view(request):
             user = reset_password_form.save()
             messages.success(request, "비밀번호 변경완료! 변경된 비밀번호로 로그인하세요.")
             logout(request)
-            return redirect('user_login')
+            return redirect('login')
         else:
             logout(request)
             request.session['auth'] = session_user
@@ -240,8 +247,8 @@ def profile_update_view(request):
             form = user_change_form.save(commit=True)
             form.save()
             messages.success(request, '회원정보가 수정되었습니다.')
-            return redirect('profile')
-        return redirect('profile')
+            return redirect('/user/profile')
+        return redirect('/user/profile')
     else:
         user_change_form = CustomUserChangeForm(instance=request.user)
         return render(request, 'user/profile_update.html', {'user_change_form':user_change_form, 'expiry_date' : expiry_date})
@@ -258,7 +265,7 @@ def password_edit_view(request):
             user = password_change_form.save()
             update_session_auth_hash(request, user)
             messages.success(request, "비밀번호를 성공적으로 변경하였습니다.")
-            return redirect('profile')
+            return redirect('/user/profile')
     else:
         password_change_form = CustomPasswordChangeForm(request.user)
 
@@ -277,7 +284,7 @@ def profile_delete_view(request):
             request.user.delete()
             logout(request)
             messages.success(request, "회원탈퇴가 완료되었습니다.")
-            return redirect('/user_login/')
+            return redirect('/user/login')
     else:
         password_form = CheckPasswordForm(request.user)
 

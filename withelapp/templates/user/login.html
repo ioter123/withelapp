@@ -1,0 +1,74 @@
+{% extends 'user/base_login.html' %}
+{% block content %}
+<section class="text-gray-600 body-font relative">
+  <div class="container px-5 py-5 mx-auto">
+    <div class="flex flex-col text-center w-full mb-12">
+      <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">로그인</h1>
+      <p class="lg:w-2/3 mx-auto leading-relaxed text-base">위드엘 홈페이지에 오신걸 환영합니다. 로그인 후 서비스 이용 가능합니다.</p>
+    </div>
+    <div class="lg:w-1/3 md:w-2/3 mx-auto">
+      <div class="flex flex-wrap -m-2">
+        <form method="POST" action="." novalidate style="width:100%;">
+          {% csrf_token %}
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label name="label_user_id" for="{{ form.user_id.id_for_label }}" class="leading-7 text-sm text-gray-600"><i class="fas fa-user"></i>&nbsp;&nbsp;{{ form.user_id.label }}</label>
+              {{ form.user_id }}
+              <script type="text/javascript">
+                  if (document.getElementsByName('user_id')[0].value != '') {
+                      document.getElementsByName('label_user_id')[0].setAttribute('class', 'active');
+                  }
+                  document.getElementsByName('user_id')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out');
+              </script>
+              {% if form.user_id.errors %}
+              <script type="text/javascript">
+                  document.getElementsByName('user_id')[0].setAttribute('class',
+                      'form-control is-invalid')
+              </script>
+              {% for error in form.user_id.errors %}
+              <div class="invalid-feedback">
+                  {{ error }}
+              </div>
+              {% endfor %}
+              {% endif %}
+            </div>
+          </div>
+          <div class="p-2 w-full">
+            <div class="relative">
+              <label for="{{ form.password.id_for_label }}" class="leading-7 text-sm text-gray-600"><i class="fas fa-lock"></i>&nbsp;&nbsp;{{ form.password.label }}</label>
+              {{ form.password }}
+              <script>
+                document.getElementsByName('password')[0].setAttribute('class', 'form-control w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out')
+              </script>
+              {% if form.password.errors %}
+              <script type="text/javascript">
+                  document.getElementsByName('password')[0].setAttribute('class', 'form-control is-invalid')
+              </script>
+              {% for error in form.password.errors %}
+              <div class="invalid-feedback">
+                  {{ error }}
+              </div>
+              {% endfor %}
+              {% endif %}
+              </div>
+          </div>
+          <div class="p-2 w-full">
+            <label>
+                <input type="checkbox" name="remember_session"/>
+                <span style="padding-bottom: 35px;">로그인 상태 유지</span>
+            </label>
+          </div>
+          <div class="p-2 w-full">
+            <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">로그인</button>
+          </div>
+        </form>
+        <div style="text-align: center;" class="p-2 w-full pt-8 mt-8 border-t border-gray-200 text-center">
+            <a class="text-indigo-500" style="color:gray; font-size: 14px;" href="{% url 'user:recovery_id' %}">아이디</a>&nbsp;&middot;
+            <a class="text-indigo-500" style="color:gray; font-size: 14px;" href="{% url 'user:recovery_pw' %}">비밀번호찾기</a>&nbsp;&middot;
+            <a class="text-indigo-500" style="color:gray; font-size: 14px;" href="{% url 'user:agreement' %}">회원가입</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}

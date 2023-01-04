@@ -43,9 +43,9 @@ SERVER_EMAIL = 'cdchwithel'
 DEFAULT_FROM_MAIL = 'cdchwithel@gmail.com'
 
 # 로그인/아웃 처리
-LOGIN_URL = '/user_login/'          # 로그인 URL
-LOGIN_REDIRECT_URL = '/user_login/'  # 로그인 후 URL
-LOGOUT_REDIRECT_URL = '/user_login/'            # 로그아웃 후 URL
+LOGIN_URL = '/user/login/'          # 로그인 URL
+LOGIN_REDIRECT_URL = '/main/'  # 로그인 후 URL
+LOGOUT_REDIRECT_URL = '/user/login/'            # 로그아웃 후 URL
 AUTH_USER_MODEL = "userapp.User"
 
 # 창 닫으면 세션 만료
@@ -154,9 +154,17 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static")
+]
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 파일업로드
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
