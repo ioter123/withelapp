@@ -27,7 +27,6 @@ from django.shortcuts import get_object_or_404
 EMAIL = getattr(settings, 'EMAIL', None)
 SECRET_KEY = getattr(settings, 'SECRET_KEY', None)
 
-
 def main(request):
     return render(request, 'user/main.html')
 
@@ -46,7 +45,7 @@ class RegisterView(CreateView):
     def get_success_url(self):
         self.request.session['register_auth'] = True
         messages.success(self.request, '회원님의 입력한 Email 주소로 인증 메일이 발송되었습니다. 인증 후 로그인이 가능합니다.')
-        return reverse('user/register_success/')
+        return reverse('user/registerauth/')
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
